@@ -1,0 +1,44 @@
+.title {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.subtitle {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.input,
+.button {
+  width: 300px;
+  height: 2rem;
+  padding: 0.5rem;
+}
+
+.redBall {
+  width: 150px;
+  height: 150px;
+  background-color: red;
+  border-radius: 50%;
+  margin: 2rem auto;
+  display: none;
+}
+
+.reaction-time {
+  text-align: center;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
