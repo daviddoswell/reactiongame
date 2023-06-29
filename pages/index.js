@@ -1,11 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import {
-  VictoryChart,
-  VictoryScatter,
-  VictoryTheme,
-  VictoryTooltip,
-  VictoryAxis,
-} from "victory";
+import ScatterPlot from "@/components/ScatterPlot";
 import { addScore, getScores } from "../lib/firestore";
 
 export default function Home() {
@@ -188,33 +182,16 @@ export default function Home() {
         </p>
       ))}
       {!loading && gameEnded && scoresData.length > 0 && (
-        <VictoryChart
-          theme={VictoryTheme.material}
-          domain={{ x: [25, 105], y: [100, 999] }}
-          width={800}
-          height={400}
-          padding={{ top: 20, bottom: 100, left: 100, right: 100 }}
-        >
-          <VictoryScatter
-            style={{ data: { fill: "#0000ff" } }}
-            size={7}
-            data={scoresData.map((score) => ({ x: score.x, y: score.y }))}
-            labels={({ datum }) => `Age: ${datum.x}, Time: ${datum.y}ms`}
-            labelComponent={<VictoryTooltip />}
+        <div style={{ marginTop: "50px" }}>
+          <ScatterPlot
+            data={scoresData.map((score) => ({
+              age: score.age,
+              score: score.score,
+            }))}
+            width={600}
+            height={400}
           />
-          <VictoryAxis
-            tickValues={[25, 35, 45, 55, 65, 75, 85, 95, 100, 105]}
-            label="Age (Years)"
-          />
-          <VictoryAxis
-            dependentAxis
-            tickValues={[100, 200, 300, 400, 500, 600, 700, 800, 900, 999]}
-            label="Reaction Time (ms)"
-            style={{
-              axisLabel: { padding: 50 },
-            }}
-          />
-        </VictoryChart>
+        </div>
       )}
     </div>
   );
