@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import ScatterPlot from "@/components/ScatterPlot";
-import { addScore, getScores } from "../lib/firestore";
+import { addScore, getScores, listenScores } from "../lib/firestore";
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -130,6 +130,15 @@ export default function Home() {
     }
   }, [displayScore]);
 
+  useEffect(() => {
+    const unsubscribe = listenScores((newScores) => {
+      setScoresData(newScores);
+    });
+
+    // Clean up subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div
       style={{
@@ -204,6 +213,7 @@ export default function Home() {
             data={scoresData.map((score) => ({
               age: score.age,
               score: score.score,
+              gender: score.gender,
             }))}
             width={600}
             height={400}

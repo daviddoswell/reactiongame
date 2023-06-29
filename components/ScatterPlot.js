@@ -46,8 +46,14 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .attr("cx", (d) => xScale(d.age))
       .attr("cy", (d) => yScale(d.score))
       .attr("r", 5)
-      .style("fill", (d) => (d.gender ? (d.gender.toLowerCase() === "male" ? "#0000ff" : "#ff1493") : "#0000ff"))
-
+      .style("fill", (d) => {
+        if (d.gender) {
+          return d.gender.toLowerCase() === "male" ? "#0000ff" : "#ff1493";
+        } else {
+          return "#808080"; // Grey for undefined gender
+        }
+      });
+      
     svg
       .append("text")
       .attr("transform", `translate(${width / 2}, ${height - 5})`)
