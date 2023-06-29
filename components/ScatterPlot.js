@@ -46,7 +46,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .attr("cx", (d) => xScale(d.age))
       .attr("cy", (d) => yScale(d.score))
       .attr("r", 5)
-      .style("fill", "#0000ff");
+      .style("fill", (d) => (d.gender ? (d.gender.toLowerCase() === "male" ? "#0000ff" : "#ff1493") : "#0000ff"))
 
     svg
       .append("text")
