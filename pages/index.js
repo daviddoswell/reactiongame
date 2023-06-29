@@ -5,6 +5,7 @@ import { addScore, getScores } from "../lib/firestore";
 export default function Home() {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
   const [score, setScore] = useState(null);
   const [error, setError] = useState(null);
   const [gameActive, setGameActive] = useState(false);
@@ -28,21 +29,18 @@ export default function Home() {
   const dismissBall = useCallback(() => {
     let elapsedTime = Date.now() - startTime;
     setScore(elapsedTime);
-    addScore(username, elapsedTime, age);
+    addScore(username, elapsedTime, age, gender);
     setScoresData((prevData) => [
       ...prevData,
       { x: age, y: elapsedTime, id: Date.now() },
     ]);
     setRounds((prevRounds) => prevRounds + 1);
     setDisplayScore(true);
-  }, [username, age, startTime]);
+  }, [username, age, gender, startTime]);
 
-  const handleKeyPress = useCallback(
-    (event) => {
-      dismissBall();
-    },
-    [dismissBall]
-  );
+  const handleKeyPress = useCallback(() => {
+    dismissBall();
+  }, [dismissBall]);
 
   const endGame = () => {
     setGameActive(false);
@@ -158,6 +156,25 @@ export default function Home() {
           placeholder="Enter your age..."
           className="input"
         />
+        <div>
+          <input
+            type="radio"
+            id="male"
+            name="gender"
+            value="male"
+            onChange={(e) => setGender(e.target.value)}
+          />
+          <label for="male">Male</label>
+          <input
+            type="radio"
+            id="female"
+            name="gender"
+            value="female"
+            onChange={(e) => setGender(e.target.value)}
+          />
+          <label for="female">Female</label>
+        </div>
+
         {error && <p>{error}</p>}
         {!gameActive && rounds < 10 && (
           <button onClick={startGame} className="button" disabled={loading}>
