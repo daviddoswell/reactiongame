@@ -7,6 +7,7 @@ import {
   axisLeft,
   bin as d3Bin,
   mean,
+  line,
 } from "d3";
 
 function kdeKernelEpanechnikov(k) {
@@ -29,6 +30,10 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     const svg = select(ref.current);
     svg.selectAll("*").remove();
 
+    data.forEach((d) => {
+      d.age = Number(d.age); // Parse age from string to number
+    });
+
     const maleScores = data
       .filter((d) => d.gender === "male")
       .map((d) => d.score);
@@ -42,22 +47,19 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     const maleDensity = kdeEstimator(maleScores);
     const femaleDensity = kdeEstimator(femaleScores);
 
-    // Your density drawing logic here...
-
     const innerWidth = width - 2 * padding;
     const innerHeight = height - 2 * padding;
 
-    const xScaleScatter = scaleLinear()
+    const xScale = scaleLinear()
       .domain([25, 105])
       .range([0, innerWidth])
       .nice();
-
-    const yScaleScatter = scaleLinear()
+    const yScale = scaleLinear()
       .domain([0, max(data, (d) => d.score)])
       .range([innerHeight, 0]);
 
-    const xAxis = axisBottom(xScaleScatter);
-    const yAxis = axisLeft(yScaleScatter).ticks(8);
+    const xAxis = axisBottom(xScale);
+    const yAxis = axisLeft(yScale).ticks(8);
 
     const g = svg
       .append("g")
@@ -68,38 +70,44 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     g.append("g").attr("transform", `translate(0, ${innerHeight})`).call(xAxis);
     g.append("g").call(yAxis);
 
-    g.append("g")
-      .selectAll("dot")
+    // KDE curves
+    // KDE Drawing
+    const yScaleKde = scaleLinear()
+      .domain([0, max([maleDensity, femaleDensity], (d) => d[1])])
+      .range([innerHeight, 0]);
+
+    const lineGenerator = line()
+      .x((d) => xScale(d[0])) // Use the same xScale as scatter plot
+      .y((d) => yScaleKde(d[1]));
+
+    g.append("path")
+      .datum(maleDensity)
+      .attr("fill", "none")
+      .attr("stroke", "#0000ff")
+      .attr("stroke-width", 1.5)
+      .attr("d", lineGenerator);
+
+    g.append("path")
+      .datum(femaleDensity)
+      .attr("fill", "none")
+      .attr("stroke", "#ff1493")
+      .attr("stroke-width", 1.5)
+      .attr("d", lineGenerator);
+
+    // Scatter plot
+    g.selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
-      .attr("cx", (d) => xScaleScatter(d.age))
-      .attr("cy", (d) => yScaleScatter(d.score))
-      .attr("r", 5)
-      .style("fill", (d) => {
-        if (d.gender) {
-          return d.gender.toLowerCase() === "male" ? "#0000ff" : "#ff1493";
-        } else {
-          return "#808080"; // Grey for undefined gender
-        }
-      });
-
-    svg
-      .append("text")
-      .attr("transform", `translate(${width / 2}, ${height - 5})`)
-      .style("text-anchor", "middle")
-      .text("Age (Years)");
-    svg
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0)
-      .attr("x", 0 - height / 2)
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Reaction Time (ms)");
+      .attr("cx", (d) => xScale(d.age))
+      .attr("cy", (d) => yScale(d.score))
+      .attr("r", 4)
+      .attr("fill", (d) => (d.gender === "male" ? "#0000ff" : "#ff1493"));
   }, [data, width, height, padding]);
 
-  return <svg ref={ref} width={width} height={height + additionalPadding} />;
+  return (
+    <svg ref={ref} width={width + 2 * padding} height={height + 2 * padding} />
+  );
 };
 
 export default ScatterPlot;
