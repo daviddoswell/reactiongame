@@ -149,7 +149,7 @@ export default function Home() {
       }}
     >
       <h1 className="title">Reaction Game</h1>
-      <h3 className="subtitle">Brain reaction time to a visual stimulus</h3>
+      <h3 className="subtitle">Brain reaction-time tool based a visual stimulus<br />to detect early onset of Alzheimer&apos;s disease.</h3>
       <div className="inputContainer">
         <input
           type="text"

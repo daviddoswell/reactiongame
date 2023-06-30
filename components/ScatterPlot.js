@@ -61,7 +61,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .range([0, innerWidth])
       .nice();
     const yScale = scaleLinear()
-      .domain([0, max(data, (d) => d.score)])
+      .domain([2000, 5000])
       .range([innerHeight, 0]);
 
     const xAxis = axisBottom(xScale);
@@ -79,7 +79,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     // KDE curves
     const minAge = min(data, (d) => d.age);
     const maxAge = max(data, (d) => d.age);
-    
+
     const xScaleKde = scaleLinear()
       .domain([0, max([maleScores, femaleScores])])
       .range([0, innerWidth]);
@@ -95,7 +95,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     // X-axis label
     g.append("text")
       .style("font-size", "14px")
-      .attr("fill", "black")
+      .attr("fill", "white")
       .attr("x", innerWidth / 2)
       .attr("y", innerHeight + padding)
       .attr("text-anchor", "middle")
@@ -104,7 +104,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     // Y-axis label
     g.append("text")
       .style("font-size", "14px")
-      .attr("fill", "black")
+      .attr("fill", "white")
       .attr("transform", "rotate(-90)")
       .attr("x", -innerHeight / 2)
       .attr("y", -padding * 1)

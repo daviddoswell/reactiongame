@@ -1,27 +1,83 @@
+/* styles.css */
+
+:root {
+  --navy: #002244;
+  --white: #ffffff;
+  --purple: #9f7aea;
+  --yellow: #ed8936;
+  --green: #48bb78;
+  --red: #e53e3e;
+  --blue: #4299e1;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
 .title {
-  text-align: center;
-  margin-top: 3rem;
+  font-size: 2.5rem;
 }
 
 .subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
   text-align: center;
-  margin-top: 1rem;
-
 }
 
 .inputContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  color: var(--white);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--white);
+  border-radius: 50px; /* Updated */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--navy);
+  background-color: var(--white);
+}
+
+input[type="radio"] {
+  margin-right: 0.5rem;
 }
 
 .input,
 .button {
-  width: 300px;
-  height: 2rem;
-  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.button {
+  width: 100%;
+  border: 2px solid var(--white);
+  background-color: var(--navy);
+  color: var(--white);
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.button:disabled {
+  background-color: var(--red);
+  cursor: not-allowed;
 }
 
 .redBall {
@@ -42,4 +98,3 @@
   justify-content: center;
   width: 100%;
 }
-
