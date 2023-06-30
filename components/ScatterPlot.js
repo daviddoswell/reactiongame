@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import {
   select,
   scaleLinear,
+  min,
   max,
   axisBottom,
   axisLeft,
@@ -76,13 +77,19 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     g.append("g").call(yAxis);
 
     // KDE curves
-    // KDE Drawing
+    const minAge = min(data, (d) => d.age);
+    const maxAge = max(data, (d) => d.age);
+    
+    const xScaleKde = scaleLinear()
+      .domain([0, max([maleScores, femaleScores])])
+      .range([0, innerWidth]);
+
     const yScaleKde = scaleLinear()
       .domain([0, max([maleDensity, femaleDensity], (d) => d[1])])
       .range([innerHeight, 0]);
 
     const lineGenerator = line()
-      .x((d) => xScale(d[0])) // Use the same xScale as scatter plot
+      .x((d) => xScaleKde(d[0]))
       .y((d) => yScaleKde(d[1]));
 
     // X-axis label
@@ -123,10 +130,9 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .style("stroke", "blue")
       .style("stroke-width", 5)
       .style("stroke-dashoffset", 5)
-
-      .attr("x1", 0)
+      .attr("x1", xScale(minAge))
       .attr("y1", yScale(maleAverageScore))
-      .attr("x2", width)
+      .attr("x2", xScale(maxAge))
       .attr("y2", yScale(maleAverageScore));
 
     // Draw average line for female scores
@@ -134,10 +140,9 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .style("stroke", "pink")
       .style("stroke-width", 5)
       .style("stroke-dashoffset", 5)
-
-      .attr("x1", 0)
+      .attr("x1", xScale(minAge))
       .attr("y1", yScale(femaleAverageScore))
-      .attr("x2", width)
+      .attr("x2", xScale(maxAge))
       .attr("y2", yScale(femaleAverageScore));
 
     // Scatter plot
