@@ -85,10 +85,10 @@ export default function Home() {
       timeoutId = setTimeout(() => {
         redBall.style.display = "block";
         redBall.onclick = () => {
-          let elapsedTime = Math.min(Date.now() - startTime, 999);
+          let elapsedTime = Math.min(Date.now() - startTime);
           setRoundScores((prevScores) => [...prevScores, elapsedTime]);
           setScore(elapsedTime);
-          addScore(username, elapsedTime, age);
+          addScore(username, elapsedTime, age, gender);
           setScoresData((prevData) => [
             ...prevData,
             { x: age, y: elapsedTime, id: Date.now() },
@@ -107,7 +107,7 @@ export default function Home() {
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [username, age, gameActive, startTime, scoresData, rounds]);
+  }, [username, age, gender, gameActive, startTime, scoresData, rounds]);
 
   useEffect(() => {
     if (gameActive) {
@@ -148,17 +148,12 @@ export default function Home() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        marginBottom: "50px",
       }}
     >
       <NavBar />
-
-      <div className="imageContainer">
-        <Image
-          src="/img/brain.svg"
-          alt="Brain Image"
-          width={100}
-          height={100}
-        />
+      <div>
+        <Image src="/img/brain.svg" alt="Brain Image" width={75} height={75} />
       </div>
       <h1 className="title">Brain Game</h1>
       <h3 className="subtitle">
@@ -171,14 +166,14 @@ export default function Home() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter your name..."
+          placeholder="Name"
           className="input"
         />
         <input
           type="number"
           value={age}
           onChange={(e) => setAge(e.target.value)}
-          placeholder="Enter your age..."
+          placeholder="Age"
           className="input"
         />
         <div>
@@ -218,11 +213,6 @@ export default function Home() {
         )}
       </div>
       {!gameEnded && <div id="redBall" className="redBall"></div>}
-      {roundScores.map((score, index) => (
-        <p key={index}>
-          Round {index + 1} : {score}ms
-        </p>
-      ))}
       {!loading && gameEnded && scoresData.length > 0 && (
         <div style={{ marginTop: "50px" }}>
           <ScatterPlot

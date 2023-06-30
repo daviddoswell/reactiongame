@@ -83,7 +83,7 @@ input[type="radio"] {
   height: 150px;
   background-color: red;
   border-radius: 50%;
-  margin: 2rem auto;
+  margin: -20px auto 2rem;
   display: none;
 }
 
@@ -103,4 +103,11 @@ a:link, a:visited {
 
 a:hover, a:active, a:focus {
   outline: none;
+}
+
+.about-text {
+  text-align: justify;
+  margin: auto;
+  max-width: 600px;
+  line-height: 1.5;
 }
