@@ -60,9 +60,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .domain([25, 105])
       .range([0, innerWidth])
       .nice();
-    const yScale = scaleLinear()
-      .domain([2000, 5000])
-      .range([innerHeight, 0]);
+    const yScale = scaleLinear().domain([2000, 5000]).range([innerHeight, 0]);
 
     const xAxis = axisBottom(xScale);
     const yAxis = axisLeft(yScale).ticks(8);
@@ -94,7 +92,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
 
     // X-axis label
     g.append("text")
-      .style("font-size", "14px")
+      .style("font-size", "20px")
       .attr("fill", "white")
       .attr("x", innerWidth / 2)
       .attr("y", innerHeight + padding)
@@ -103,14 +101,15 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
 
     // Y-axis label
     g.append("text")
-      .style("font-size", "14px")
+      .style("font-size", "20px")
       .attr("fill", "white")
       .attr("transform", "rotate(-90)")
       .attr("x", -innerHeight / 2)
-      .attr("y", -padding * 1)
+      .attr("y", -padding * 1.3)
       .attr("text-anchor", "middle")
       .text("Reaction Time (millisconds)");
 
+    // Draw path
     g.append("path")
       .datum(maleDensity)
       .attr("fill", "none")

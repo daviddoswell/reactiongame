@@ -98,3 +98,11 @@ input[type="radio"] {
   justify-content: center;
   width: 100%;
 }
+
+a:link, a:visited {
+  text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+  outline: none;
+}

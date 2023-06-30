@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import ScatterPlot from "@/components/ScatterPlot";
+import NavBar from "@/components/NavBar";
 import { addScore, getScores, listenScores } from "../lib/firestore";
 
 export default function Home() {
@@ -148,8 +149,14 @@ export default function Home() {
         justifyContent: "center",
       }}
     >
+      <NavBar />
+
       <h1 className="title">Reaction Game</h1>
-      <h3 className="subtitle">Brain reaction-time tool based a visual stimulus<br />to detect early onset of Alzheimer&apos;s disease.</h3>
+      <h3 className="subtitle">
+        Brain reaction-time tool based a visual stimulus
+        <br />
+        to detect early onset of Alzheimer&apos;s disease.
+      </h3>
       <div className="inputContainer">
         <input
           type="text"
