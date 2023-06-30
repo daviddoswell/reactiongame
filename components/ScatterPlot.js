@@ -85,6 +85,25 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .x((d) => xScale(d[0])) // Use the same xScale as scatter plot
       .y((d) => yScaleKde(d[1]));
 
+    // X-axis label
+    g.append("text")
+      .style("font-size", "14px")
+      .attr("fill", "black")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + padding)
+      .attr("text-anchor", "middle")
+      .text("Age");
+
+    // Y-axis label
+    g.append("text")
+      .style("font-size", "14px")
+      .attr("fill", "black")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -innerHeight / 2)
+      .attr("y", -padding * 1)
+      .attr("text-anchor", "middle")
+      .text("Reaction Time (millisconds)");
+
     g.append("path")
       .datum(maleDensity)
       .attr("fill", "none")
