@@ -41,6 +41,11 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .filter((d) => d.gender === "female")
       .map((d) => d.score);
 
+    const maleAverageScore =
+      maleScores.reduce((a, b) => a + b, 0) / maleScores.length;
+    const femaleAverageScore =
+      femaleScores.reduce((a, b) => a + b, 0) / femaleScores.length;
+
     const kernel = kdeKernelEpanechnikov(7);
     const thresholds = d3Bin().thresholds(maleScores.length)(maleScores);
     const kdeEstimator = kde(kernel, thresholds);
@@ -93,6 +98,28 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .attr("stroke", "#ff1493")
       .attr("stroke-width", 1.5)
       .attr("d", lineGenerator);
+
+    // Draw average line for male scores
+    g.append("line")
+      .style("stroke", "blue")
+      .style("stroke-width", 5)
+      .style("stroke-dashoffset", 5)
+
+      .attr("x1", 0)
+      .attr("y1", yScale(maleAverageScore))
+      .attr("x2", width)
+      .attr("y2", yScale(maleAverageScore));
+
+    // Draw average line for female scores
+    g.append("line")
+      .style("stroke", "pink")
+      .style("stroke-width", 5)
+      .style("stroke-dashoffset", 5)
+
+      .attr("x1", 0)
+      .attr("y1", yScale(femaleAverageScore))
+      .attr("x2", width)
+      .attr("y2", yScale(femaleAverageScore));
 
     // Scatter plot
     g.selectAll("circle")
