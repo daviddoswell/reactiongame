@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import ScatterPlot from "@/components/ScatterPlot";
 import NavBar from "@/components/NavBar";
+import Image from "next/image";
 import { addScore, getScores, listenScores } from "../lib/firestore";
 
 export default function Home() {
@@ -151,9 +152,17 @@ export default function Home() {
     >
       <NavBar />
 
-      <h1 className="title">Reaction Game</h1>
+      <div className="imageContainer">
+        <Image
+          src="/img/brain.svg"
+          alt="Brain Image"
+          width={100}
+          height={100}
+        />
+      </div>
+      <h1 className="title">Brain Game</h1>
       <h3 className="subtitle">
-        Brain reaction-time tool based a visual stimulus
+        Reaction-time software based on a visual stimulus
         <br />
         to detect early onset of Alzheimer&apos;s disease.
       </h3>

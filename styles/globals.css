@@ -3,9 +3,6 @@
 :root {
   --navy: #002244;
   --white: #ffffff;
-  --purple: #9f7aea;
-  --yellow: #ed8936;
-  --green: #48bb78;
   --red: #e53e3e;
   --blue: #4299e1;
 }
@@ -26,7 +23,8 @@ body {
 }
 
 .subtitle {
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 300;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -72,7 +70,7 @@ input[type="radio"] {
   border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .button:disabled {
