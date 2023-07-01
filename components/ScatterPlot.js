@@ -57,7 +57,7 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     const innerHeight = height - 2 * padding;
 
     const xScale = scaleLinear()
-      .domain([25, 105])
+      .domain([25, 115])
       .range([0, innerWidth])
       .nice();
     const yScale = scaleLinear().domain([2000, 5000]).range([innerHeight, 0]);
