@@ -10,6 +10,7 @@ import {
   mean,
   line,
 } from "d3";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 function kdeKernelEpanechnikov(k) {
   return function (v) {
@@ -90,6 +91,21 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
       .x((d) => xScaleKde(d[0]))
       .y((d) => yScaleKde(d[1]));
 
+    // Scatter plot with tooltip
+    g.selectAll("circle")
+      .data(data)
+      .enter()
+      .append("circle")
+      .attr("cx", (d) => xScale(d.age))
+      .attr("cy", (d) => yScale(d.score))
+      .attr("r", 4)
+      .attr("fill", (d) => (d.gender === "male" ? "#0000ff" : "#ff1493"))
+      .attr("data-tooltip-id", (d) => `tooltip-${d.username}`)
+      .attr(
+        "data-tooltip-content",
+        (d) => `User: ${d.username}<br/>Score: ${d.score}<br/>Age: ${d.age}`
+      );
+
     // X-axis label
     g.append("text")
       .style("font-size", "20px")
@@ -156,7 +172,19 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
   }, [data, width, height, padding]);
 
   return (
-    <svg ref={ref} width={width + 2 * padding} height={height + 2 * padding} />
+    <>
+      {data.map((d) => (
+        <ReactTooltip
+          id={`tooltip-${d.username}`}
+          key={d.username}
+        />
+      ))}
+      <svg
+        ref={ref}
+        width={width + 2 * padding}
+        height={height + 2 * padding}
+      />
+    </>
   );
 };
 
