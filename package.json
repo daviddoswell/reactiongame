@@ -23,7 +23,6 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "react-plotly.js": "^2.6.0",
-    "react-tooltip": "^5.16.1",
     "regression": "^2.0.1",
     "tailwindcss": "3.3.2",
     "victory": "^36.6.11"
