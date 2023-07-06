@@ -1,30 +1,74 @@
 /* styles.css */
 
 :root {
-  --navy: #002244;
-  --white: #ffffff;
-  --red: #e53e3e;
-  --blue: #4299e1;
+  --primary: #ffffff; /* Primary Color - White */
+  --secondary: #000000; /* Secondary Color - Black */
+  --accent: #398f41; /* Accent Color - Light Green */
+  --red: #e53e3e; /* Red Color */
 }
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: var(--navy);
   color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: linear-gradient(270deg, #f2f2f2, #ffffff);
+  background-size: 200% 200%;
+  animation: Gradient 15s ease infinite;
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.background-animation {
+  animation-name: colorchange;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 5.5rem;
+  color: #000000;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 0.5rem;
+}
+
+.secondTitle {
+  font-size: 1.2rem;
+  color: #000000;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .subtitle {
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 1.2rem;
+  color: #000000;
+  font-weight: 600;
+  font-family: serif;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -42,13 +86,13 @@ body {
 
 .input {
   width: 100%;
-  border: 1px solid var(--white);
-  border-radius: 50px; /* Updated */
+  border: 3px solid var(--secondary);
+  border-radius: 50px;
   padding: 1rem;
   margin-bottom: 1rem;
   font-size: 1rem;
-  color: var(--navy);
-  background-color: var(--white);
+  color: black;
+  background-color: var(--primary);
 }
 
 input[type="radio"] {
@@ -62,9 +106,9 @@ input[type="radio"] {
 
 .button {
   width: 100%;
-  border: 2px solid var(--white);
-  background-color: var(--navy);
-  color: var(--white);
+  border: 3px solid var(--secondary);
+  background-color: var(--primary);
+  color: var(--secondary);
   padding: 1rem;
   font-size: 1rem;
   border-radius: 50px;
@@ -76,6 +120,10 @@ input[type="radio"] {
 .button:disabled {
   background-color: var(--red);
   cursor: not-allowed;
+}
+
+.error {
+  color: red;
 }
 
 .redBall {

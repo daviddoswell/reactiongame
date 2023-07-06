@@ -20,8 +20,8 @@ export default function Home() {
   const [roundScores, setRoundScores] = useState([]);
 
   const startGame = () => {
-    if (username === "" || age === "") {
-      setError("Username and age are required.");
+    if (username === "" || age === "" || gender === "") {
+      window.alert("Username, age, and gender, are required.");
       return;
     }
     setError(null);
@@ -184,7 +184,7 @@ export default function Home() {
             value="male"
             onChange={(e) => setGender(e.target.value)}
           />
-          <label for="male">Male</label>
+          <label htmlFor="male">Male</label>
           <input
             type="radio"
             id="female"
@@ -192,7 +192,7 @@ export default function Home() {
             value="female"
             onChange={(e) => setGender(e.target.value)}
           />
-          <label for="female">Female</label>
+          <label htmlFor="female">Female</label>
         </div>
 
         {error && <p>{error}</p>}

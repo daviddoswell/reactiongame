@@ -35,6 +35,8 @@ const ScatterPlot = ({ data, width = 500, height = 500, padding = 50 }) => {
     const tooltip = select(tooltipRef.current); // Using tooltipRef here
     tooltip.style("opacity", 0);
 
+    console.log(data);
+
     data.forEach((d) => {
       d.age = Number(d.age); // Parse age from string to number
       d.score = Math.round(Number(d.score)); // Parse score from string to number and round it
